@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Young Boutique</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  margin:0;
+  font-family:Poppins;
+  background:#0b0b0b;
+  color:white;
+}
+
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  background:black;
+}
+
+nav h1{
+  font-family:Playfair Display;
+  color:gold;
+}
+
+nav .cart{
+  background:#111;
+  padding:10px;
+  border-radius:8px;
+}
+
+/* HERO */
+.hero{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:60px;
+  background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),
+  url('https://images.unsplash.com/photo-1520975922322-47e4b9fdf3a1') center/cover;
+}
+
+.hero-text{
+  max-width:500px;
+}
+
+.hero h2{
+  font-size:55px;
+  font-family:Playfair Display;
+}
+
+.btn{
+  padding:12px 25px;
+  margin:10px;
+  border:none;
+  cursor:pointer;
+}
+
+.gold{
+  background:gold;
+  color:black;
+}
+
+.outline{
+  background:transparent;
+  border:1px solid white;
+  color:white;
+}
+
+/* COLLECTIONS */
+.section{
+  padding:50px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#111;
+  border-radius:10px;
+  padding:10px;
+}
+
+.card img{
+  width:100%;
+  border-radius:10px;
+}
+
+.card button{
+  width:100%;
+  margin-top:10px;
+  background:gold;
+  border:none;
+  padding:10px;
+}
+
+/* ABOUT */
+.about{
+  display:flex;
+  gap:30px;
+  background:#111;
+}
+
+.about img{
+  width:50%;
+  border-radius:10px;
+}
+
+/* ORDER */
+.order-box{
+  background:#111;
+  padding:30px;
+  border-radius:10px;
+}
+
+/* CHATBOT */
+#bot{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:white;
+  color:black;
+  padding:15px;
+  border-radius:10px;
+  width:250px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h1>Young Boutique</h1>
+  <div class="cart">🛒 <span id="count">0</span></div>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <h2>Young Boutique</h2>
+    <p>Luxury fashion that defines your confidence.</p>
+
+    <button class="btn gold">Shop Collection</button>
+    <button class="btn outline">Order Now</button>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Shop Our Top Collections</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519">
+      <h3>Joggers</h3>
+      <button onclick="add('Joggers')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1593030761757-71fae45fa0e7">
+      <h3>Women Gowns</h3>
+      <button onclick="add('Gown')">Add</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03">
+      <h3>Night Wears</h3>
+      <button onclick="add('Nightwear')">Add</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1603252109303-2751441dd157">
+      <h3>Pants</h3>
+      <button onclick="add('Pants')">Add</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990">
+      <h3>Boxers</h3>
+      <button onclick="add('Boxers')">Add</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1583744946564-b52ac1c389c8">
+      <h3>Singlets</h3>
+      <button onclick="add('Singlet')">Add</button>
+    </div>
+
+  </div>
+</section>
+
+<section class="section about">
+  <div>
+    <h2>About Us</h2>
+    <p>
+    Young Boutique is one of the top fashion brands in Aba,
+    delivering classy, trendy and affordable wears.
+    </p>
+  </div>
+
+  <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8">
+</section>
+
+<section class="section">
+  <div class="order-box">
+    <h2>Place Your Order</h2>
+    <button class="btn gold" onclick="checkout()">Order on WhatsApp</button>
+    <p>Customer Service: 09032741903</p>
+  </div>
+</section>
+
+<div id="bot">
+  <strong>Young AI 🤖</strong>
+  <p id="reply">Hi 👋</p>
+  <input id="input" placeholder="Ask..." style="width:100%">
+</div>
+
+<script>
+
+let cart = [];
+
+function add(item){
+  cart.push(item);
+  document.getElementById("count").innerText = cart.length;
+}
+
+function checkout(){
+  let msg = "I want to order: " + cart.join(", ");
+  window.open("https://wa.me/2348149327923?text=" + encodeURIComponent(msg));
+}
+
+document.getElementById("input").addEventListener("keypress", function(e){
+  if(e.key==="Enter"){
+    let v = this.value.toLowerCase();
+    if(v.includes("price")){
+      reply.innerText="Check WhatsApp for prices";
+    }else{
+      reply.innerText="Chat us on WhatsApp";
+    }
+    this.value="";
+  }
+});
+
+</script>
+
+</body>
+  </html>
